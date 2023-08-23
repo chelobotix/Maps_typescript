@@ -14,6 +14,14 @@ class User {
       lng: faker.location.longitude(),
     };
   }
+
+  markerContent(): string {
+    return `<div>
+    <h3>${this.name}</h3>
+    <p>Latitude: ${this.location.lat}</p>
+    <p>Longitude: ${this.location.lng}</p>
+  </div>`;
+  }
 }
 
 export { User };

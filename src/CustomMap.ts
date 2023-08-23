@@ -5,6 +5,7 @@ interface Mapabble {
     lat: number;
     lng: number;
   };
+  markerContent(): string;
 }
 
 class CustomMap {
@@ -21,12 +22,21 @@ class CustomMap {
   }
 
   addMarker(mappable: Mapabble): void {
-    new google.maps.Marker({
+    const newMark = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng,
       },
+    });
+
+    newMark.addListener('click', () => {
+      console.log(mappable);
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+
+      infoWindow.open(this.googleMap, newMark);
     });
   }
 }
